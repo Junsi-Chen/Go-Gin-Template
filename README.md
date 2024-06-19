@@ -44,14 +44,6 @@ filetree
     └─util // 工具
 ```
 
-
-
-
-
-### 开发的架构 
-
-请阅读[ARCHITECTURE.md](https://github.com/shaojintian/Best_README_template/blob/master/ARCHITECTURE.md) 查阅为该项目的架构。
-
 ### 部署
 
 暂无
