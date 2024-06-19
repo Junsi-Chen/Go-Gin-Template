@@ -8,6 +8,7 @@ import (
 	"template/router"
 	"template/tool/log"
 	"template/tool/mysql"
+	"template/tool/redis"
 	"template/tool/util"
 )
 
@@ -24,11 +25,17 @@ func (s *Server) Init(conf *conf.Config) error {
 	var err error
 	log.Init(conf.App.ServerName)
 
+	// 初始化mysql
 	s.db, err = mysql.InitEngine(conf.Mysql)
 	if err != nil {
 		return err
 	}
 
+	// 初始化redis
+	err = redis.InitClient(conf.Redis)
+	if err != nil {
+		return err
+	}
 	// 赋值到models包的db
 	models.InitDb(s.db)
 	// 表同步

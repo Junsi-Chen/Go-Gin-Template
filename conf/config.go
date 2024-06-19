@@ -4,6 +4,7 @@ import (
 	"github.com/spf13/viper"
 	"template/tool/http"
 	"template/tool/mysql"
+	"template/tool/redis"
 )
 
 var Conf *Config
@@ -20,6 +21,7 @@ type SignGrpc struct {
 
 type Config struct {
 	App      *App
+	Redis    *redis.Instance
 	Mysql    *mysql.Instance
 	Http     *http.Instance
 	SignGrpc *SignGrpc
