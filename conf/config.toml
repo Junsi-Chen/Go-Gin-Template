@@ -1,0 +1,33 @@
+[app]
+serverName = "template"
+jwtSecret = "app"
+debug = false
+
+[http]
+port = ":9090"
+mode = ""
+address = ""
+corsUrl = ""
+readTimeout = 60
+writeTimeout = 60
+
+[mysql]
+user = "root"
+password = "root"
+host = "127.0.0.1:3306"
+databaseName = "template"
+charset = "utf8mb4"
+logShow = true
+
+[redis]
+addresses = ["127.0.0.1:6379"]
+password = ""
+maxIdle = 30
+maxActive = 30
+idleTimeout = 200
+cluster = 0
+dBNumber = 0
+
+# 微服务
+#[signGrpc]
+#host = "127.0.0.1:9090"

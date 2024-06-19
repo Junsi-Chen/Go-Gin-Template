@@ -1,0 +1,26 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "go项目模板",
+        "contact": {},
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/test": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "测试接口",
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200,\"data\":{},\"msg\":\"ok\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,16 @@
+info:
+  contact: {}
+  title: go项目模板
+  version: "1.0"
+paths:
+  /api/test:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"ok"}'
+          schema:
+            type: string
+      summary: 测试接口
+swagger: "2.0"
