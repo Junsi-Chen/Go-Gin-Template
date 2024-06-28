@@ -1,14 +1,17 @@
 package server
 
 import (
+	"crypto/tls"
+	"crypto/x509"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
+	"net/http"
+	"os"
 	"template/conf"
 	"template/models"
 	"template/router"
 	"template/tool/log"
 	"template/tool/mysql"
-	"template/tool/redis"
 	"template/tool/util"
 )
 
@@ -32,10 +35,10 @@ func (s *Server) Init(conf *conf.Config) error {
 	}
 
 	// 初始化redis
-	err = redis.InitClient(conf.Redis)
-	if err != nil {
-		return err
-	}
+	//err = redis.InitClient(conf.Redis)
+	//if err != nil {
+	//	return err
+	//}
 	// 赋值到models包的db
 	models.InitDb(s.db)
 	// 表同步
@@ -55,5 +58,28 @@ func (s *Server) Init(conf *conf.Config) error {
 	return nil
 }
 func (s *Server) Run() error {
-	return s.gin.Run(conf.Conf.Http.Port)
+	// 读取CA证书
+	caCert, err := os.ReadFile("conf/ca/ca.crt")
+	if err != nil {
+		return err
+	}
+	// 创建一个CA证书池并添加CA证书
+	certPool := x509.NewCertPool()
+	certPool.AppendCertsFromPEM(caCert)
+
+	// 配置 TLS
+	tlsConfig := &tls.Config{
+		ClientCAs: certPool,
+		// 不需要客户端的证书，只需要服务器验证（常用）
+		ClientAuth: tls.NoClientCert,
+	}
+
+	// 启动HTTPS 并配置客户端证书验证
+	srv := &http.Server{
+		Addr:      conf.Conf.Http.Port,
+		Handler:   s.gin,
+		TLSConfig: tlsConfig,
+	}
+
+	return srv.ListenAndServeTLS("conf/ca/server.crt", "conf/ca/server.key")
 }

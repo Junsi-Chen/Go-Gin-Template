@@ -13,7 +13,7 @@ import (
 func InitRouter(r *gin.Engine) {
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	api := r.Group("/api")
-	api.Use(middleware.CORSMiddleware(), middleware.JWT())
+	api.Use(middleware.CORSMiddleware())
 	testRoute(api.Group("/test"))
 }
 

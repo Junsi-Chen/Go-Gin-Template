@@ -13,7 +13,7 @@ writeTimeout = 60
 
 [mysql]
 user = "root"
-password = "root"
+password = "cjs"
 host = "127.0.0.1:3306"
 databaseName = "template"
 charset = "utf8mb4"
