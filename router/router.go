@@ -12,9 +12,9 @@ import (
 // InitRouter initialize routing information
 func InitRouter(r *gin.Engine) {
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	testRoute(r.Group("/api/test"))
 	api := r.Group("/api")
-	api.Use(middleware.CORSMiddleware())
-	testRoute(api.Group("/test"))
+	api.Use(middleware.CORSMiddleware(), middleware.JWT())
 }
 
 func testRoute(rg *gin.RouterGroup) {
